@@ -30,3 +30,4 @@ override.tf.json
 
 /.env
 tk8-cluster-key.json
+/keys/*
