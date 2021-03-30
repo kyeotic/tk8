@@ -27,14 +27,14 @@ spec:
           key: ingress-pool
           operator: Equal
           value: "true"
-      #volumes:
+      # volumes:
       #  - name: traefik-config
       #    configMap:
       #      name: traefik-config
       containers:
         - name: traefik
           image: "traefik:v2.1.9"
-          #volumeMounts:
+          # volumeMounts:
           #  - mountPath: "/etc/traefik/config"
           #    name: traefik-config
           args:
@@ -44,8 +44,12 @@ spec:
             - --ping.entrypoint=ping
             - --log.level=ERROR
             - --providers.kubernetescrd
-            #- --certificatesresolvers.letsencrypt.acme.dnschallenge
-            #- --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=cloudflare
+            # - --certificatesresolvers.letsencrypt.acme.storage=acme.json
+            - --certificatesresolvers.myresolver.acme.email=tim@kye.dev
+            - --certificatesresolvers.myresolver.acme.storage=acme.json
+            - --certificatesresolvers.myresolver.acme.tlschallenge=true
+            - --certificatesresolvers.myresolver.acme.caserver=https://acme-v02.api.letsencrypt.org/directory
+            # - --certificatesresolvers.myresolver.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
           ports:
             - name: web
               containerPort: 80

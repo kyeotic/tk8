@@ -29,3 +29,41 @@ spec:
           port: 80
   #tls:
   #  certResolver: letsencrypt
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroutetlstk8
+  namespace: nginx-web
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: PathPrefix(`/`) && Host(`tk8.kye.dev`)
+      kind: Rule
+      services:
+        - name: nginx-web
+          port: 80
+  tls:
+   certResolver: myresolver
+    # domains:
+    #   - main: "tk8.kye.dev"
+---
+apiVersion: traefik.containo.us/v1alpha1
+kind: IngressRoute
+metadata:
+  name: ingressroutetlstk8
+  namespace: nginx-web
+spec:
+  entryPoints:
+    - websecure
+  routes:
+    - match: PathPrefix(`/`) && Host(`blog.kye.dev`)
+      kind: Rule
+      services:
+        - name: nginx-web
+          port: 80
+  tls:
+   certResolver: myresolver
+    # domains:
+    #     - main: "blog.kye.dev"
