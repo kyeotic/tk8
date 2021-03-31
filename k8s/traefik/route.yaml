@@ -53,7 +53,7 @@ apiVersion: traefik.containo.us/v1alpha1
 kind: IngressRoute
 metadata:
   name: ingressroutetlstk8
-  namespace: nginx-web
+  namespace: blog
 spec:
   entryPoints:
     - websecure
@@ -61,7 +61,7 @@ spec:
     - match: PathPrefix(`/`) && Host(`blog.kye.dev`)
       kind: Rule
       services:
-        - name: nginx-web
+        - name: blog
           port: 80
   tls:
    certResolver: myresolver
